@@ -2,7 +2,7 @@
 import calendar
 import hashlib
 import re
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import feedparser
 import httpx
@@ -23,7 +23,7 @@ def clean_html(value):
 
 
 def collect_news(run_id, limit=20):
-    cutoff = datetime.now(timezone.utc) - timedelta(hours=24)
+    cutoff = datetime.now(UTC) - timedelta(hours=24)
     collected = []
     seen_urls = set()
     seen_titles = set()
@@ -63,7 +63,7 @@ def collect_news(run_id, limit=20):
 
                     published = datetime.fromtimestamp(
                         calendar.timegm(time_data),
-                        tz=timezone.utc,
+                        tz=UTC,
                     )
 
                     if published < cutoff:
@@ -106,11 +106,14 @@ def collect_news(run_id, limit=20):
                         "published_at": published.isoformat(),
                     })
 
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001
                 log_event(
-                    run_id, "collector", "failed",
+                    run_id,
+                    "collector",
+                    "failed",
                     tool="httpx.get",
                     category=category,
+                    error_type=type(exc).__name__,
                     error=str(exc),
                 )
 

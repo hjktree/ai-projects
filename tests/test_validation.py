@@ -2,12 +2,11 @@
 import pytest
 
 from agents import (
-    Pick,
     NewsLine,
+    Pick,
     validate_picks,
     validate_summaries,
 )
-
 
 ARTICLES = [
     {"id": "N001", "title": "경제 기사 1"},
