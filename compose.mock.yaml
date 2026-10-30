@@ -1,0 +1,19 @@
+services:
+  news-worker:
+    command: ["python", "mock_runner.py"]
+
+    environment:
+      NEWS_AI_BACKEND: "mock"
+
+    volumes:
+      - type: bind
+        source: ./tests/output/reports
+        target: /app/reports
+
+      - type: bind
+        source: ./tests/output/logs
+        target: /app/logs
+
+      - type: bind
+        source: ./tests/output/data
+        target: /app/data
