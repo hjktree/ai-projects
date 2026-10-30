@@ -1,6 +1,6 @@
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -12,7 +12,7 @@ def log_event(run_id, stage, status, **details):
 
     event = {
         "timestamp": datetime.now(
-            timezone.utc
+            UTC
         ).isoformat(),
         "run_id": run_id,
         "stage": stage,

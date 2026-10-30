@@ -1,0 +1,29 @@
+---
+- name: Prepare local AI News environment
+  hosts: news_servers
+  become: true
+
+  tasks:
+    - name: Create application directory
+      ansible.builtin.file:
+        path: /opt/ai-news-bot-lab
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Create reports directory
+      ansible.builtin.file:
+        path: /opt/ai-news-bot-lab/reports
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Create logs directory
+      ansible.builtin.file:
+        path: /opt/ai-news-bot-lab/logs
+        state: directory
+        owner: root
+        group: root
+        mode: "0750"

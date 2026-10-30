@@ -6,8 +6,8 @@ from datetime import datetime, timedelta, timezone
 from agents import (
     MODEL,
     run_researcher,
-    run_summarizer,
     run_reviewer,
+    run_summarizer,
 )
 from collector import collect_news
 from common import ROOT, log_event

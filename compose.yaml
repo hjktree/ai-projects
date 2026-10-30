@@ -1,0 +1,22 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    restart: unless-stopped
+    volumes:
+      - ollama-models:/root/.ollama
+
+  news-worker:
+    build: .
+    environment:
+      OLLAMA_BASE_URL: "http://ollama:11434"
+      NEWS_MODEL: "qwen3:4b-instruct"
+    depends_on:
+      - ollama
+    volumes:
+      - ./data:/app/data
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+    restart: "no"
+
+volumes:
+  ollama-models:
