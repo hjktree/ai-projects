@@ -137,8 +137,8 @@ def call_ai(role, schema, payload, run_id):
                 ],
                 format=schema.model_json_schema(),
                 options={
-                    "temperature": 0,
-                },
+                    "temperature": 0, "num_ctx": 8192,
+                }, 
                 keep_alive="5m",
             )
 
